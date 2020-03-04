@@ -1,5 +1,6 @@
 import express from 'express';
 import todoController from './todoController';
+import commentController from './commentController';
 
 const router = express.Router();
 
@@ -10,12 +11,19 @@ router.get('/',todoController.getTodos);
 router.get('/:todoId',todoController.getTodo);
 
 router.post('/',todoController.createTodo);
-/*
-router.delete('/:id',controller.destroy);
 
+//router.put('/:todoId',todoController.updateTodo);
 
+router.delete('/:todoId',todoController.removeTodo);
 
-router.put('/:id',controller.updateTodo);
+router.post('/:todoId/comments',commentController.createComment);
 
-*/
+router.get('/:todoId/comments',commentController.getComments);
+
+router.get('/:todoId/comments/:commentId',commentController.getComment);
+
+router.delete('/:todoId/comments/:commentId',commentController.removeComment);
+
+//router.put('/:todoId/comments/:commentId',commentController.updateComment);
+
 export default router;

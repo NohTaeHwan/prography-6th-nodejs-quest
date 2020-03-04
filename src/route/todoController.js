@@ -22,7 +22,7 @@ exports.createTodo = (req,res) => {
   .catch(error =>{
     return res.status(500).send(error);
   });
-}
+};
 
 
 //GET todos
@@ -34,7 +34,7 @@ exports.getTodos = (req,res) => {
 //GET todo id
 exports.getTodo = (req,res) => {
 
-  const id = parseInt(req.params.todoId , 10);
+  const id = req.params.todoId;
 
   //validation incorrect id
   if(!id){
@@ -53,4 +53,49 @@ exports.getTodo = (req,res) => {
     }
     return res.status(200).json(todo);
   });
+};
+
+/*
+//PUT update todo //일단 패
+exports.updateTodo = (req,res) => {
+  const {title , description , tags} = req.body;
+  const id = parseInt(req.params.todoId);
+
+  models.Todo.update(
+  {
+    title,
+    description,
+    tags
+  },
+  {where : {id : id}} )
+  .then(result => {
+    //result.tags = JSON.parse(result.tags);
+    return res.status(200).json(result);
+  })
+  .catch(error => {
+    return res.status(500);
+  });
+
+
+};
+*/
+//DELETE remove todo
+exports.removeTodo = (req,res) =>{
+  const id = req.params.todoId;
+
+  //validation incorrect id
+  if(!id){
+    return res.status(400).send('wrong id');
+  }
+
+  models.Todo.destroy(
+    { where : {id : id}}
+  )
+  .then(() => {
+    return res.status(200).json({msg : 'success'});
+  })
+  .catch(error => {
+    return res.status(500);
+  });
+
 };

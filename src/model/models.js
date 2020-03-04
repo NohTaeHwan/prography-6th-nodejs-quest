@@ -31,6 +31,7 @@ const Comment = sequelize.define('comment',{
   }
 });
 
+Todo.hasMany(Comment);
 Comment.belongsTo(Todo);
 
 module.exports = {
