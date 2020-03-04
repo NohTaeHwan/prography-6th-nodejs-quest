@@ -14,6 +14,7 @@
     "jest": "^25.1.0",
     "multer": "^1.4.2",
     "mysql2": "^2.1.0",
+    "sequelize": "^5.21.5",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
