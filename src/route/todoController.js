@@ -55,7 +55,7 @@ exports.getTodo = (req,res) => {
   });
 };
 
-/*
+
 //PUT update todo //일단 패
 exports.updateTodo = (req,res) => {
   const {title , description , tags} = req.body;
@@ -68,6 +68,9 @@ exports.updateTodo = (req,res) => {
     tags
   },
   {where : {id : id}} )
+  .then(() => {
+    return models.Todo.findByPk(id);
+  })
   .then(result => {
     //result.tags = JSON.parse(result.tags);
     return res.status(200).json(result);
@@ -78,7 +81,36 @@ exports.updateTodo = (req,res) => {
 
 
 };
-*/
+
+
+//PUT completed todo
+exports.completeTodo = (req,res) => {
+  const id = req.params.todoId;
+
+  //validation incorrect id
+  if(!id){
+    return res.status(400).send('wrong id');
+  }
+
+  models.Todo.update({
+
+      isCompleted : 1
+    }
+    , { where : {id : id}}
+  )
+  .then(() => {
+    return models.Todo.findByPk(id);
+  })
+  .then(result => {
+    return res.status(200).json(result);
+  })
+  .catch(error => {
+    return res.status(500);
+  });
+
+};
+
+
 //DELETE remove todo
 exports.removeTodo = (req,res) =>{
   const id = req.params.todoId;

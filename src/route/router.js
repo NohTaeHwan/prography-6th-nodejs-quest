@@ -4,15 +4,15 @@ import commentController from './commentController';
 
 const router = express.Router();
 
-//module.exports = router;
-
 router.get('/',todoController.getTodos);
 
 router.get('/:todoId',todoController.getTodo);
 
 router.post('/',todoController.createTodo);
 
-//router.put('/:todoId',todoController.updateTodo);
+router.put('/:todoId',todoController.updateTodo);
+
+router.put('/:todoId/complete',todoController.completeTodo);
 
 router.delete('/:todoId',todoController.removeTodo);
 
@@ -24,6 +24,6 @@ router.get('/:todoId/comments/:commentId',commentController.getComment);
 
 router.delete('/:todoId/comments/:commentId',commentController.removeComment);
 
-//router.put('/:todoId/comments/:commentId',commentController.updateComment);
+router.put('/:todoId/comments/:commentId',commentController.updateComment);
 
 export default router;

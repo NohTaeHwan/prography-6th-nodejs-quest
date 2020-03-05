@@ -66,10 +66,10 @@ exports.getComment = (req,res) => {
   });
 };
 
-/*
+
 //PUT update comment
 exports.updateComment = (req,res) =>{
-  const {contents} = req.body;
+  const contents = req.body.contents;
   const todoId = req.params.todoId;
   const id = req.params.commentId;
 
@@ -84,18 +84,19 @@ exports.updateComment = (req,res) =>{
   }
 
   models.Comment.update(
-    { contents } ,
-    { where : {todoId : todoId, id: id}})
-    .then(comment => {
-      console.log(res.json(comment.dataValues));
-      return res.status(200).json(comment.dataValues);
-    })
+    { contents : contents } ,
+    { where : {todoId : todoId, id: id}},
+  )
+  .then(() => {
+    return models.Comment.findByPk(id);
+  })
+  .then(result => {
+    return res.status(200).json(result);
+  })
     .catch(error => {
       return res.status(500);
     });
 };
-*/
-
 
 //DELETE comment
 exports.removeComment = (req,res) =>{
