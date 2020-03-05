@@ -63,16 +63,16 @@ exports.updateTodo = (req,res) => {
 
   models.Todo.update(
   {
-    title,
-    description,
-    tags
+    title : title,
+    description : description,
+    tags : JSON.stringify(tags)
   },
   {where : {id : id}} )
   .then(() => {
     return models.Todo.findByPk(id);
   })
   .then(result => {
-    //result.tags = JSON.parse(result.tags);
+    result.tags = JSON.parse(result.tags);
     return res.status(200).json(result);
   })
   .catch(error => {
